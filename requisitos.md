@@ -31,6 +31,5 @@ Nesta etapa serão feitos:
 - Definição da ideia do projeto;
 - Definição dos requisitos;
 - Organização inicial do GitHub.
-- 
 ## 7. Próximas Etapas
 - Desenvolver o sistema.
