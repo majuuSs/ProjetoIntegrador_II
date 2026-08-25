@@ -56,3 +56,4 @@ erDiagram
 - **Módulo de autenticação**: cobre RF01 e RNF04 (proteção dos dados de login).
 - **Módulo de objetos**: cobre RF02, RF03, RF06 e RF07 (cadastro, devolução e data de registro).
 - **Módulo de busca**: cobre RF04 e RF05 (listagem e pesquisa por palavra-chave).
+- **Link para o Trello:** https://trello.com/b/dQmJsIdZ/achados-e-perdidos-projeto-escolar
