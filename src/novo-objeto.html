@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastrar objeto | Achados e Perdidos</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="topo">
+    <a href="inicio.html" class="marca">Achados e perdidos</a>
+    <div class="usuario">
+      <span id="nome-usuario"></span>
+      <button id="botao-sair">Sair</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="cartao">
+      <h1>Cadastrar objeto</h1>
+      <p class="subtitulo">Preencha os dados do objeto perdido ou achado.</p>
+
+      <div class="abas">
+        <button type="button" id="aba-achado" class="ativo">Achei um objeto</button>
+        <button type="button" id="aba-perdido">Perdi um objeto</button>
+      </div>
+
+      <form id="form-objeto">
+        <label for="entrada-foto">Foto (opcional)</label>
+        <input type="file" id="entrada-foto" accept="image/*" style="display:none" />
+        <div class="foto-preview" id="foto-preview">
+          <span>Toque para adicionar uma foto</span>
+        </div>
+
+        <label for="descricao">Descrição do objeto</label>
+        <textarea id="descricao" placeholder="Ex: mochila azul da marca X, com um chaveiro de urso" required></textarea>
+
+        <label for="local">Local</label>
+        <input type="text" id="local" placeholder="Ex: bloco B, sala 4, refeitório..." required />
+
+        <button type="submit" class="btn btn-principal" id="botao-salvar">Salvar cadastro</button>
+      </form>
+
+      <p id="mensagem-erro" class="mensagem-erro"></p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cadastro-objeto.js"></script>
+</body>
+</html>

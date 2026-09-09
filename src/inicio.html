@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Objetos | Achados e Perdidos</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="topo">
+    <a href="inicio.html" class="marca">Achados e perdidos</a>
+    <div class="usuario">
+      <span id="nome-usuario"></span>
+      <button id="botao-sair">Sair</button>
+    </div>
+  </div>
+
+  <div class="container largo">
+
+    <div class="campo-busca">
+      <input type="text" id="campo-pesquisa" placeholder="Buscar por descrição ou local..." />
+    </div>
+
+    <div class="abas">
+      <button id="aba-todos" class="ativo">Todos</button>
+      <button id="aba-perdidos">Perdidos</button>
+      <button id="aba-achados">Achados</button>
+    </div>
+
+    <div id="lista-objetos" class="lista-objetos">
+      <p class="carregando">Carregando objetos...</p>
+    </div>
+
+    <div class="botao-flutuante">
+      <a href="novo-objeto.html">+ Cadastrar objeto</a>
+    </div>
+
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

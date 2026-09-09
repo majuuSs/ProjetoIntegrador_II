@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Achados e Perdidos da Escola</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <div class="cartao">
+      <h1>Achados e perdidos</h1>
+      <p class="subtitulo">Entre com seu e-mail da escola para cadastrar e procurar objetos.</p>
+
+      <div class="abas">
+        <button id="aba-entrar" class="ativo">Entrar</button>
+        <button id="aba-criar">Criar conta</button>
+      </div>
+
+      <!-- Formulário de login -->
+      <form id="form-entrar">
+        <label for="email-entrar">E-mail</label>
+        <input type="email" id="email-entrar" placeholder="nome@escola.com" required />
+
+        <label for="senha-entrar">Senha</label>
+        <input type="password" id="senha-entrar" placeholder="Sua senha" required />
+
+        <button type="submit" class="btn btn-principal">Entrar</button>
+      </form>
+
+      <!-- Formulário de cadastro de conta -->
+      <form id="form-criar" style="display: none;">
+        <label for="nome-criar">Nome completo</label>
+        <input type="text" id="nome-criar" placeholder="Seu nome" required />
+
+        <label for="email-criar">E-mail</label>
+        <input type="email" id="email-criar" placeholder="nome@escola.com" required />
+
+        <label for="senha-criar">Senha</label>
+        <input type="password" id="senha-criar" placeholder="Mínimo 6 caracteres" required minlength="6" />
+
+        <label for="papel-criar">Você é</label>
+        <select id="papel-criar">
+          <option value="aluno">Aluno</option>
+          <option value="professor">Professor</option>
+          <option value="funcionario">Funcionário</option>
+          <option value="responsavel">Responsável</option>
+        </select>
+
+        <button type="submit" class="btn btn-principal">Criar conta</button>
+      </form>
+
+      <p id="mensagem-erro" class="mensagem-erro"></p>
+    </div>
+  </div>
+
+  <!-- SDKs do Firebase (versão "compat", mais simples de usar sem build tools) -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script>
+    const abaEntrar = document.getElementById("aba-entrar");
+    const abaCriar = document.getElementById("aba-criar");
+    const formEntrar = document.getElementById("form-entrar");
+    const formCriar = document.getElementById("form-criar");
+    const mensagemErro = document.getElementById("mensagem-erro");
+
+    function mostrarErro(texto) {
+      mensagemErro.textContent = texto;
+      mensagemErro.classList.add("mostrar");
+    }
+
+    function limparErro() {
+      mensagemErro.classList.remove("mostrar");
+    }
+
+    abaEntrar.addEventListener("click", () => {
+      abaEntrar.classList.add("ativo");
+      abaCriar.classList.remove("ativo");
+      formEntrar.style.display = "block";
+      formCriar.style.display = "none";
+      limparErro();
+    });
+
+    abaCriar.addEventListener("click", () => {
+      abaCriar.classList.add("ativo");
+      abaEntrar.classList.remove("ativo");
+      formCriar.style.display = "block";
+      formEntrar.style.display = "none";
+      limparErro();
+    });
+
+    // Se já estiver logado, pula direto pra listagem.
+    auth.onAuthStateChanged((usuario) => {
+      if (usuario) {
+        window.location.href = "inicio.html";
+      }
+    });
+
+    // Login
+    formEntrar.addEventListener("submit", (evento) => {
+      evento.preventDefault();
+      limparErro();
+      const email = document.getElementById("email-entrar").value.trim();
+      const senha = document.getElementById("senha-entrar").value;
+
+      auth.signInWithEmailAndPassword(email, senha)
+        .then(() => {
+          window.location.href = "inicio.html";
+        })
+        .catch((erro) => {
+          mostrarErro(traduzirErro(erro.code));
+        });
+    });
+
+    // Criar conta
+    formCriar.addEventListener("submit", (evento) => {
+      evento.preventDefault();
+      limparErro();
+      const nome = document.getElementById("nome-criar").value.trim();
+      const email = document.getElementById("email-criar").value.trim();
+      const senha = document.getElementById("senha-criar").value;
+      const papel = document.getElementById("papel-criar").value;
+
+      auth.createUserWithEmailAndPassword(email, senha)
+        .then((resultado) => {
+          // Guarda os dados extras do usuário (nome, papel) no Firestore.
+          // A senha em si NUNCA passa por aqui — quem cuida dela com
+          // criptografia é o próprio Firebase Authentication.
+          return db.collection("usuarios").doc(resultado.user.uid).set({
+            nome: nome,
+            email: email,
+            papel: papel,
+            criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        })
+        .then(() => {
+          window.location.href = "inicio.html";
+        })
+        .catch((erro) => {
+          mostrarErro(traduzirErro(erro.code));
+        });
+    });
+
+    function traduzirErro(codigo) {
+      const mapa = {
+        "auth/email-already-in-use": "Esse e-mail já tem uma conta cadastrada.",
+        "auth/invalid-email": "E-mail inválido.",
+        "auth/weak-password": "A senha precisa ter pelo menos 6 caracteres.",
+        "auth/user-not-found": "Não existe conta com esse e-mail.",
+        "auth/wrong-password": "Senha incorreta.",
+        "auth/invalid-credential": "E-mail ou senha incorretos."
+      };
+      return mapa[codigo] || "Algo deu errado. Tente novamente.";
+    }
+  </script>
+</body>
+</html>
