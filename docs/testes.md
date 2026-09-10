@@ -32,4 +32,22 @@ Abri um objeto que eu mesma tinha cadastrado e cliquei em "Marcar como
 devolvido". O status mudou na hora pra "Devolvido".
 
 **7. Teste de segurança — só o dono pode marcar como devolvido**
-Sem nem planejar, acabei
+Sem nem planejar, acabei testando isso na prática: eu estava com uma
+conta logada no celular e outra conta diferente logada no notebook. Ao
+tentar abrir, pelo notebook, um objeto que eu tinha cadastrado com a
+conta do celular, o botão "Marcar como devolvido" simplesmente não
+apareceu. Isso confirma que só quem cadastrou o item consegue alterar o
+status dele, mesmo estando logado no sistema.
+
+**8. Teste em celular e computador (responsividade)**
+Usei o site tanto no notebook quanto no celular (via Wi-Fi). O layout se
+ajustou direitinho nas duas telas, sem cortar nem desalinhar nada.
+
+## Conclusão
+
+O sistema atende a todos os requisitos definidos nas etapas anteriores:
+cadastro de objetos achados e perdidos, busca, filtro por tipo, data de
+registro automática, controle de devolução restrito ao dono do cadastro,
+e layout responsivo. A autenticação é feita pelo Firebase Authentication,
+e as regras de segurança do Firestore garantem que cada usuária só
+edite os próprios cadastros.
