@@ -1,6 +1,6 @@
 # Relatório de Validação — Achados e Perdidos
 
-Esse arquivo mostra os testes que fizemos no sistema pra garantir que tudo
+Esse arquivo mostra os testes que fiz no sistema pra garantir que tudo
 funciona como deveria.
 
 ## O que testamos
