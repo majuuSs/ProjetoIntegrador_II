@@ -11,3 +11,7 @@ Alunos, professores, funcionários das escolas e pais ou responsáveis.
 Os responsáveis poderão utilizar quando a escola for uma escola infantil onde muitas crianças não têm celular ainda, aí o responsável pala criança pode procurar objetos que a criança perdeu ou cadastrar algo.
 ##Tecnologias
 A definir nas próximas etapas do projeto 
+## Resultado final
+Link do site finalizado: https://majuuss.github.io/ProjetoIntegrador_II/
+Sistema de achados e perdidos da escola, com login, cadastro de objetos
+achados e perdidos, busca por palavra-chave e controle de devolução.
